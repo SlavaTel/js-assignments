@@ -305,8 +305,12 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   // return arr.filter((el => el > 0)&& (typeof el === 'number')).length
-   throw new Error('Not implemented');
+   let newArr = arr.filter(function (element) {
+      if (typeof element === 'number' && element > 0) {
+          return element;
+      }
+  });
+  return newArr.length;
 }
  
 /** 
@@ -512,7 +516,11 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   throw new Error('Not implemented');
+   let v = new Map();
+   array.map((val) => {
+      v.set(keySelector(val), (v.get(keySelector(val)) === undefined ? [] : v.get(keySelector(val))).concat([valueSelector(val)]));
+   });
+   return v;
 }
 
 
@@ -568,7 +576,20 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+   let res = 0;   
+   let t = 0;   
+   let h = arr.slice(0, arr.length / 2);
+   let m = arr[Math.round((arr.length - 1) / 2)];
+   if (arr.length % 2 === 0) {
+       t = arr.slice(arr.length / 2, arr.length);
+       res = t.concat(h);
+       t.push(arr.slice(arr.length / 2, arr.length));
+   }
+   else if (arr.length % 2 === 1) {
+       t = arr.slice((arr.length / 2 + 1), arr.length);
+       res = t.concat(m).concat(h)
+   }
+   return res;
 }
 
 
