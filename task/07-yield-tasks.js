@@ -137,14 +137,18 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    const queue = [root];
-    while (queue.length > 0) {
-        root = queue.shift();
-        yield root;
-        if (typeof root.children !== 'undefined')
-            for (let value of root.children)
+    let queue = [root];
+    let index = 0;
+    while ((queue.length - index) > 0) {
+        let current = queue[index];
+        yield current;
+        if (current.children){
+            for (const value of current.children){
                 queue.push(value);
-    };
+            }
+        }
+        index++;
+    }
 }
 
 
@@ -193,7 +197,16 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-    throw new Error('Not implemented');
+    let gen = generator()
+    let value=gen.next();
+    return resolve(value);
+    
+    function resolve(value){
+        if(value.done){
+            return Promise.resolve(value.value);
+        }
+        return Promise.resolve(value.value).then(response=>resolve(gen.next(response)));
+    }
 }
 
 
