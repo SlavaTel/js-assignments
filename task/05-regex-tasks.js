@@ -93,7 +93,7 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-   return /^[0-9]{2}[1-9]{1}-[0-9]{1}[1-9]{1}-[0-9]{3}[1-9]{1}$/;
+   return /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/;
 }
 
 
