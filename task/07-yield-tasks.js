@@ -33,22 +33,18 @@
  *
  */
 function* get99BottlesOfBeer() {
-    let index = 99
-    let line = true
-    while (index > 0) {
-        if (line)
-            yield `${index} bottle${index > 1 ? 's' : ''} of beer on the wall, ${index} bottle${index > 1 ? 's' : ''} of beer.`;
-        else {
-            --index;
-            if (index)
-                yield `Take one down and pass it around, ${index} bottle${index > 1 ? 's' : ''} of beer on the wall.`;
-            else
-                yield 'Take one down and pass it around, no more bottles of beer on the wall.';
-        }
-        line = !line;
+    let bottles = 99;
+    while (bottles > 2) {
+        yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`;
+        yield `Take one down and pass it around, ${bottles - 1} bottles of beer on the wall.`;
+        bottles--;
     }
+    yield '2 bottles of beer on the wall, 2 bottles of beer.';
+    yield 'Take one down and pass it around, 1 bottle of beer on the wall.';    
+    yield '1 bottle of beer on the wall, 1 bottle of beer.';
+    yield 'Take one down and pass it around, no more bottles of beer on the wall.';
     yield 'No more bottles of beer on the wall, no more bottles of beer.';
-    yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';;
+    yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
 }
 
 
@@ -108,9 +104,11 @@ function* depthTraversalTree(root) {
     while (stack.length > 0) {
         root = stack.pop();
         yield root;
-        if (typeof root.children !== 'undefined')
-            for (let value of root.children.reverse())
+        if (typeof root.children !== 'undefined') {
+            for (let value of root.children.reverse()) {
                 stack.push(value);
+            }
+        }
     };
 }
 
@@ -166,19 +164,20 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-    let src1 = source1()
-    let src2 = source2()
-    let val1 = src1.next().value
-    let val2 = src2.next().value
-    while (true)
-    if ((val1 < val2 || val2 === undefined) && val1 !== undefined) {
-        yield val1;
-        val1 = src1.next().value;
-    } else if (val2 !== undefined) {
-        yield val2;
-        val2 = src2.next().value;
-    } else
-        break;
+    let src1 = source1();
+    let src2 = source2();
+    let valLeft = src1.next();
+    let valRight = src2.next();
+    while (!valLeft.done || !valRight.done) {
+        if ( valLeft.done || valLeft.value > valRight.value) {
+            yield valRight.value;
+            valRight = src2.next();
+        } else {
+            yield valLeft.value;
+            valLeft = src1.next();
+        }
+    }
+
 }
 
 /**
