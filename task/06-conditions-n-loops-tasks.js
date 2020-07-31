@@ -30,13 +30,16 @@
  *
  */
 function getFizzBuzz(num) {
-    if (num % 3 && num % 5)
-      return num
-    if (num % 3)
-      return 'Buzz' 
-    if (num % 5)
-      return 'Fizz'     
-    return 'FizzBuzz'   
+    if (num % 3 && num % 5) {
+        return num;
+    }
+    if (num % 3) {
+        return 'Buzz' 
+    }
+    if (num % 5) {
+        return 'Fizz'     
+    }
+    return 'FizzBuzz';
 }
 
 
@@ -53,9 +56,10 @@ function getFizzBuzz(num) {
  */
 function getFactorial(n) {
     let result = 1;
-    while (n > 0)
+    while (n > 0) {
         result *= n--;
-    return result    
+    }
+    return result;    
 }
 
 
@@ -164,7 +168,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    return Math.hypot(circle.center.x - point.x, circle.center.y - point.y) < circle.radius
+    return (Math.hypot(circle.center.x - point.x, circle.center.y - point.y) < circle.radius);
 }
 
 
@@ -180,9 +184,12 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    for (let i = 0; i < str.length; i++)
-        if (str.indexOf(str[i]) === i && str.lastIndexOf(str[i]) === i)
+    for (let i = 0; i < str.length; i++) {
+
+        if (str.indexOf(str[i]) === i && str.lastIndexOf(str[i]) === i) {
             return str[i];
+        }
+    }
     return null;    
 }
 
@@ -213,7 +220,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
         Math.min(a, b) +
         ', ' +
         Math.max(a, b) +
-        (isEndIncluded ? ']' : ')');;
+        (isEndIncluded ? ']' : ')');
 }
 
 
@@ -231,9 +238,10 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  */
 function reverseString(str) {
     let result = '';
-    for (let i = str.length - 1; i >= 0 ; i--)
+    for (let i = str.length - 1; i >= 0 ; i--) {
         result += str[i];
-    return result
+    }
+    return result;
 }
 
 
@@ -281,13 +289,18 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(ccn) {
     let sum = 0 ;
-    const ssn = ccn.toString()
-    for (let i = 0; i < ssn.length; i++)
-        if (ssn.length % 2 !== i % 2)
-            sum += ssn[i] * 1
-        else
-            sum += ssn[i] * 2 + (ssn[i] > 4 ? -9 : 0)
-    return sum % 10 === 0                
+    const ssn = ccn.toString() 
+    for (let i = 0; i < ssn.length; i++) {
+
+        if (ssn.length % 2 !== i % 2) {
+            sum += ssn[i] * 1;
+        }
+        else {
+            sum += ssn[i] * 2 + (ssn[i] > 4 ? -9 : 0);
+        }
+    }
+
+    return (sum % 10 === 0 );       
 }
 
 
@@ -314,7 +327,7 @@ function getDigitalRoot(num) {
             i = Math.floor(i / 10);
         }
     }
-    return num;;
+    return num;
 }
 
 
@@ -344,12 +357,13 @@ function isBracketsBalanced(str) {
         open  = ['[', '(', '{', '<'],
         close = [']', ')', '}', '>'];
     for (let i = 0; i < str.length; i++) {
-        if (open.indexOf(str[i]) >= 0)
+        if (open.indexOf(str[i]) >= 0) {
             pair.push(open.indexOf(str[i]));
-        else if (close[pair.pop()] != str[i])
+        } else if (close[pair.pop()] != str[i]) {
             return false;
+        }
     }
-return pair.length == 0;;
+return pair.length == 0;
 }
 
 
@@ -390,26 +404,36 @@ function timespanToHumanString(startDate, endDate) {
         m = s * 60, // minute
         h = m * 60, // hour
         d = h * 24; // day
-    if (diff <= 45 * s)
+    if (diff <= 45 * s) {
         return 'a few seconds ago';
-    if (diff <= 90 * s)
+    }
+    if (diff <= 90 * s) {
         return 'a minute ago';
-    if (diff <= 45 * m)
+    }
+    if (diff <= 45 * m) {
         return `${Math.round((diff - 1) / m)} minutes ago`;
-    if (diff <= 90 * m)
+    }
+    if (diff <= 90 * m) {
         return 'an hour ago';
-    if (diff <= 22 * h)
+    }
+    if (diff <= 22 * h) {
         return `${Math.round((diff - 1) / h)} hours ago`;
-    if (diff <= 36 * h)
+    }
+    if (diff <= 36 * h) {
         return 'a day ago';
-    if (diff <= 25 * d)
+    }
+    if (diff <= 25 * d) {
         return `${Math.round((diff - 1) / d)} days ago`;
-    if (diff <= 45 * d)
+    }
+    if (diff <= 45 * d) {
         return 'a month ago';
-    if (diff <= 345 * d)
+    }
+    if (diff <= 345 * d) {
         return `${Math.round(diff / 30 / d)} months ago`;
-    if (diff <= 545 * d)
+    }
+    if (diff <= 545 * d) {
         return 'a year ago';
+    }
     return `${Math.round(diff / 365 / d)} years ago`;
 }
 
@@ -497,11 +521,12 @@ function getMatrixProduct(m1, m2) {
         result[i] = [];
         for (let j = 0; j < m2[i].length; j++) {
             result[i][j] = 0;
-            for (let k = 0; k < m1[i].length; k++)
+            for (let k = 0; k < m1[i].length; k++) {
                 result[i][j] += m1[i][k] * m2[k][j];
+            }
         }
     }
-    return result;;
+    return result;
 }
 
 
@@ -550,10 +575,12 @@ function evaluateTicTacToePosition(position) {
         let b = true,
             v = position[row[0][0]][row[0][1]];
         if (v !== undefined) {
-            for (let i = 1; i < row.length; i++)
+            for (let i = 1; i < row.length; i++) {
                 b = b && v === position[row[i][0]][row[i][1]];
-            if (b)
+            }
+            if (b) {
                 return v;
+            }
         }
     };
 }
